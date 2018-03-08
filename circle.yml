@@ -4,11 +4,11 @@ test:
     - pybot -n non-critical -d "robot_results" ./TestSuite1.robot 
     
   post:
-    - mkdir -p $TEST_REPORTS
-    - find . -type f -regex ".*/robot_results/.*xml" -exec cp {} $TEST_REPORTS \;
+     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+     - find . -type f -regex ".*/target/failsafe-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
     
   general:
    artifacts:
-     - $TEST_REPORTS
-     - robot_results
+     - $CIRCLE_TEST_REPORTS
+     - target
      
