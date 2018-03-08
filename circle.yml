@@ -1,4 +1,9 @@
 test:
   override:
     - pybot -n non-critical -d "target" ./TestSuite1.robot 
+
+
+general:
+  artifacts:
+    - "target"
     
