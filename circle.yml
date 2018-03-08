@@ -1,25 +1,14 @@
-test:
-  override:
-    #- npm install -g newman
-    #- newman run ./AutomationTestcase.postman_collection.json 
-    - pip install -r requirements.txt
-    - pybot -n non-critical -d "robot_results" ./TestSuite1.robot 
-    #- pybot -d ./TestData ./TestSuite.robot 
-    
+
 general:
   artifacts:
-    - "robot_results"
-workflows:
-  version: 2
-  hourly:
-    triggers:
-      - schedule:
-          cron: "43 4 * * *"
-          filters:
-            branches:
-              only:
-                - master
-                - beta
-    jobs:
-      - test 
+    - $TEST_REPORTS
+     - robot_results
+test:
+  override:
+    - pip install -r requirements.txt
+    - pybot -n non-critical -d "robot_results" ./TestSuite1.robot 
+    
+  post:
+    - mkdir -p $TEST_REPORTS
+    - find . -type f -regex ".*/robot_results/.*xml" -exec cp {} $TEST_REPORTS \;
      
