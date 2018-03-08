@@ -1,8 +1,3 @@
-
-general:
-  artifacts:
-    - $TEST_REPORTS
-     - robot_results
 test:
   override:
     - pip install -r requirements.txt
@@ -11,4 +6,9 @@ test:
   post:
     - mkdir -p $TEST_REPORTS
     - find . -type f -regex ".*/robot_results/.*xml" -exec cp {} $TEST_REPORTS \;
+    
+  general:
+   artifacts:
+     - $TEST_REPORTS
+     - robot_results
      
